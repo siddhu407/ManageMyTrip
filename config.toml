@@ -1,0 +1,5 @@
+top_level_methods = false
+
+[functions.reverse-geocode]
+verify_jwt = true
+entrypoint = "./functions/reverse-geocode/index.ts"

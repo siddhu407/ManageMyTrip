@@ -6,7 +6,7 @@ import {
   useCallback,
   type ReactNode,
 } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase, supabaseUrl, supabaseAnonKey } from '@/lib/supabase';
 import { useAuth } from '@/context/AuthContext';
 import type { AppLocation } from '@/types';
 
@@ -26,12 +26,12 @@ function reverseGeocode(lat: number, lng: number): Promise<{
   country?: string;
   countryCode?: string;
 } | null> {
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
   return fetch(
     `${supabaseUrl}/functions/v1/reverse-geocode?lat=${lat}&lng=${lng}`,
     {
       headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        Authorization: `Bearer ${supabaseAnonKey}`,
+        apikey: supabaseAnonKey,
         'Content-Type': 'application/json',
       },
     }

@@ -31,7 +31,7 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    const nominatimUrl = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latNum}&lng=${lngNum}&zoom=10&addressdetails=1`;
+    const nominatimUrl = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latNum}&lon=${lngNum}&zoom=10&addressdetails=1`;
 
     const response = await fetch(nominatimUrl, {
       headers: {
@@ -73,9 +73,9 @@ Deno.serve(async (req: Request) => {
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
+    console.error("reverse-geocode failed:", err);
     return new Response(
-      JSON.stringify({ error: message }),
+      JSON.stringify({ error: "Could not resolve location" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
